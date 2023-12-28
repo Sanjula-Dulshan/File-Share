@@ -1,4 +1,5 @@
-import mongoose, { Document } from "mongoose";
+import mongoose from "mongoose";
+import { IFile } from "../libs/types";
 
 const Schema = mongoose.Schema;
 
@@ -30,11 +31,4 @@ const fileSchema = new Schema(
   { timestamps: true }
 );
 
-interface IFile extends Document {
-  filename: string;
-  secure_url: string;
-  format: string;
-  sizeInBytes: string;
-  sender: string;
-  receiver: string;
-}
+export default mongoose.model<IFile>("FileData", fileSchema);
