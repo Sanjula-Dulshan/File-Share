@@ -1,9 +1,12 @@
-import React, { useCallback } from "react";
+import React, { Dispatch, FunctionComponent, useCallback } from "react";
 import { DropzoneOptions, useDropzone } from "react-dropzone";
 
-export const DropZone = () => {
+export const DropZone: FunctionComponent<{ setFile: Dispatch<any> }> = ({
+  setFile,
+}) => {
   const onDrop = useCallback((acceptedFiles: DropzoneOptions[]) => {
     console.log(acceptedFiles);
+    setFile(acceptedFiles[0]);
   }, []);
   const { getRootProps, getInputProps, isDragAccept, isDragReject } =
     useDropzone({
