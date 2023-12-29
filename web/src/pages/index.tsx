@@ -7,10 +7,10 @@ import { UPLOAD_STATE } from "../../libs/types";
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [id, setId] = useState(null);
-  const [downloadPageLink, setDownloadPageLink] = useState(null);
   const [uploadState, setUploadState] = useState<UPLOAD_STATE>(
     UPLOAD_STATE.UPLOAD
   );
+  let downloadPageLink;
 
   const handleUpload = async () => {
     if (uploadState === UPLOAD_STATE.UPLOADING) return;
@@ -29,7 +29,8 @@ export default function Home() {
         },
       });
       setId(data.id);
-      setDownloadPageLink(data.downloadPageLink);
+      downloadPageLink = `${window.location.origin}/download/${data.id}`;
+      console.log(downloadPageLink);
       setUploadState(UPLOAD_STATE.UPLOADED);
     } catch (error: any) {
       console.log("error ", error.response.data);
