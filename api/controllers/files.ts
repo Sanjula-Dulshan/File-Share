@@ -1,7 +1,8 @@
 import { UploadApiResponse, v2 as cloudinary } from "cloudinary";
 import File from "../models/File";
 import { IFile } from "../libs/types";
-export const Upload = async (req: any, res: any) => {
+
+export const upload = async (req: any, res: any) => {
   console.log("test");
   try {
     if (!req.file) return res.status(400).json({ msg: "No file uploaded" });
@@ -36,5 +37,27 @@ export const Upload = async (req: any, res: any) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "Server Error" });
+  }
+};
+
+export const getFileDetails = async (req: any, res: any) => {
+  try {
+    const id = req.params.id;
+    const file = await File.findById(id);
+
+    if (!file) {
+      return res.status(404).json({ msg: "File does not exist" });
+    }
+
+    const { filename, format, sizeInBytes } = file;
+
+    return res.status(200).json({
+      name: filename,
+      sizeInBytes: sizeInBytes,
+      format: format,
+      id,
+    });
+  } catch (error) {
+    return res.status(500).json({ msg: "Server Error" });
   }
 };

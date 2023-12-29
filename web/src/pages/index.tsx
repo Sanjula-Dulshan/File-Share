@@ -3,14 +3,16 @@ import { RenderFile } from "@/components/RenderFile";
 import axios from "axios";
 import { useState } from "react";
 import { UPLOAD_STATE } from "../../libs/types";
+import { DownloadFile } from "@/components/DownloadFile";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [id, setId] = useState(null);
+  const [downloadPageLink, setDownloadPageLink] = useState("");
+
   const [uploadState, setUploadState] = useState<UPLOAD_STATE>(
     UPLOAD_STATE.UPLOAD
   );
-  let downloadPageLink;
 
   const handleUpload = async () => {
     if (uploadState === UPLOAD_STATE.UPLOADING) return;
@@ -29,21 +31,26 @@ export default function Home() {
         },
       });
       setId(data.id);
-      downloadPageLink = `${window.location.origin}/download/${data.id}`;
-      console.log(downloadPageLink);
+      setDownloadPageLink(`${window.location.origin}/download/${data.id}`);
       setUploadState(UPLOAD_STATE.UPLOADED);
     } catch (error: any) {
       console.log("error ", error.response.data);
       setUploadState(UPLOAD_STATE.UPLOAD_FAILED);
     }
   };
+
+  const resetComponent = () => {
+    setFile(null);
+    setDownloadPageLink("");
+    setUploadState(UPLOAD_STATE.UPLOAD);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center">
       <h1 className="my-4 text-3xl">Got a File? Share it with your friends!</h1>
 
       <div className="flex flex-col items-center justify-center bg-gray-800 shadow-xl w-96 rounded-xl">
-        <DropZone setFile={setFile} />
-
+        {!downloadPageLink && <DropZone setFile={setFile} />}
         {file && (
           <RenderFile
             file={{
@@ -53,12 +60,25 @@ export default function Home() {
             }}
           />
         )}
-        <button
-          className="p-2 my-5 bg-gray-900 rounded-md w-44"
-          onClick={handleUpload}
-        >
-          {uploadState}
-        </button>
+        {!downloadPageLink && (
+          <button
+            className="p-2 my-5 bg-gray-900 rounded-md w-44"
+            onClick={handleUpload}
+          >
+            {uploadState}
+          </button>
+        )}
+        {downloadPageLink && (
+          <div className="p-2 text-center">
+            <DownloadFile downloadPageLink={downloadPageLink} />
+            <button
+              className="p-2 my-5 bg-gray-900 rounded-md w-44"
+              onClick={resetComponent}
+            >
+              Upload New File
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
