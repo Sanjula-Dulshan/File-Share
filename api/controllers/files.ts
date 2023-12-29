@@ -28,7 +28,6 @@ export const Upload = async (req: any, res: any) => {
       const file = await File.create(fileData);
       res.status(200).json({
         id: file._id,
-        downloadPageLink: `${process.env.API_BASE_ENDPOINT_CLIENT}/download/${file._id}`,
       });
     } catch (error) {
       console.log(error);
