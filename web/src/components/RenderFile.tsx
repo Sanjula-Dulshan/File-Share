@@ -1,14 +1,15 @@
 import React, { FunctionComponent } from "react";
 import { IFile } from "../../libs/types";
+import { sizeInMb } from "../../libs/sizeInMb";
 
 export const RenderFile: FunctionComponent<{ file: IFile }> = ({
   file: { format, name, sizeInBytes },
 }) => {
   return (
-    <div>
-      <img src={`/images/${format}`} alt="" />
-      <span>{name}</span>
-      <span>{sizeInBytes}</span>
+    <div className="flex items-center w-full p-4 my-2">
+      <img src={`/images/${format}.png`} alt="" className="w-14 h-14" />
+      <span className="mx-2">{name}</span>
+      <span className="ml-auto">{sizeInMb(sizeInBytes)}</span>
     </div>
   );
 };
