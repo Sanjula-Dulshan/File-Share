@@ -1,6 +1,7 @@
 import { UploadApiResponse, v2 as cloudinary } from "cloudinary";
 import File from "../models/File";
 import { IFile } from "../libs/types";
+import https from "https";
 
 export const upload = async (req: any, res: any) => {
   try {
@@ -54,6 +55,21 @@ export const getFileDetails = async (req: any, res: any) => {
       format: format,
       id,
     });
+  } catch (error) {
+    return res.status(500).json({ msg: "Server Error" });
+  }
+};
+
+export const downloadFile = async (req: any, res: any) => {
+  try {
+    const id = req.params.id;
+    const file = await File.findById(id);
+
+    if (!file) {
+      return res.status(404).json({ msg: "File does not exist" });
+    }
+
+    https.get(file.secure_url, (fileStream) => fileStream.pipe(res));
   } catch (error) {
     return res.status(500).json({ msg: "Server Error" });
   }

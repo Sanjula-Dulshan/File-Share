@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { getFileDetails, upload } from "../controllers/files";
+import { downloadFile, getFileDetails, upload } from "../controllers/files";
 
 const router = express.Router();
 const storage = multer.diskStorage({});
@@ -10,5 +10,6 @@ let uploadStorage = multer({
 
 router.post("/upload", uploadStorage.single("myFile"), upload);
 router.get("/:id", getFileDetails);
+router.get("/download/:id", downloadFile);
 
 export default router;
