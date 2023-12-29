@@ -3,11 +3,8 @@ import File from "../models/File";
 import { IFile } from "../libs/types";
 
 export const upload = async (req: any, res: any) => {
-  console.log("test");
   try {
     if (!req.file) return res.status(400).json({ msg: "No file uploaded" });
-
-    console.log(req.file);
 
     let uploadedFile: UploadApiResponse;
 
