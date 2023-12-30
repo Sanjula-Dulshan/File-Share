@@ -82,10 +82,17 @@ export const downloadFile = async (req: any, res: any) => {
 export const sendEmail = async (req: any, res: any) => {
   const { id, emailFrom, emailTo, clientOrigin } = req.body;
 
+  if (!id || !emailFrom || !emailTo)
+    return res.status(400).json({ message: "All fields are required" });
+
   const file = await File.findById(id);
 
   if (!file) {
-    return res.status(404).json({ message: "File does not exist" });
+    return res.status(400).json({ message: "File does not exist" });
+  }
+
+  if (file.sender) {
+    return res.status(400).json({ message: "File is already sent" });
   }
 
   const transporter = nodemailer.createTransport({
