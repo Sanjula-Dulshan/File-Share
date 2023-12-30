@@ -14,7 +14,7 @@ const index: NextPage<{ file: IFile }> = ({
     fileDownload(data, name);
   };
   return (
-    <div className="flex flex-col items-center justify-center py-3 space-y-4 bg-gray-800 rounded-md shadow-xl w-96">
+    <div className="flex flex-col items-center justify-center py-3 space-y-4 bg-dark-green-400 rounded-md shadow-xl w-96">
       {!id ? (
         <span>Oops! File does not exist! check the URL</span>
       ) : (

@@ -12,7 +12,7 @@ export const DownloadFile: FunctionComponent<{ downloadPageLink: string }> = ({
         <img
           src="/images/copy.png"
           alt=""
-          className="object-contain w-8 h-8 cursor-pointer"
+          className="object-contain w-7 h-7 cursor-pointer"
           onClick={() => navigator.clipboard.writeText(downloadPageLink)}
         />
       </div>

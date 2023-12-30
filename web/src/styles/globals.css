@@ -28,6 +28,17 @@ body {
 
 @layer components {
   .button {
-    @apply p-2 my-5 bg-gray-900 rounded-md w-44;
+    @apply p-2 my-5 bg-dark-gray rounded-md w-44;
+  }
+  .button:hover {
+    @apply p-2 my-5 bg-dark-grayHover rounded-md w-44;
+  }
+
+  .button_disable {
+    @apply cursor-not-allowed;
+  }
+
+  .button_disable:hover {
+    @apply bg-dark-gray;
   }
 }
