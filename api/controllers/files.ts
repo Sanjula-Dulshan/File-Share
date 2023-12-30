@@ -83,6 +83,7 @@ export const sendEmail = async (req: any, res: any) => {
   const { id, emailFrom, emailTo, clientOrigin } = req.body;
 
   const file = await File.findById(id);
+  console.log("file: ", file);
 
   if (!file) {
     return res.status(404).json({ msg: "File does not exist" });
