@@ -82,8 +82,6 @@ export const downloadFile = async (req: any, res: any) => {
 export const sendEmail = async (req: any, res: any) => {
   const { id, emailFrom, emailTo, clientOrigin } = req.body;
 
-  console.log("body ", req.body);
-
   const file = await File.findById(id);
 
   if (!file) {
@@ -100,17 +98,6 @@ export const sendEmail = async (req: any, res: any) => {
     },
   });
 
-  console.log("transporter ", transporter);
-  console.log(
-    "process.env.SENDINBLUE_SMTP_HOST ",
-    process.env.SENDINBLUE_SMTP_HOST
-  );
-
-  console.log(
-    "process.env.SENDINBLUE_SMTP_PORT ",
-    process.env.SENDINBLUE_SMTP_PORT
-  );
-
   const { filename, sizeInBytes } = file;
   const fileSize = sizeInMb(Number(sizeInBytes));
   const downloadpageLink = `${clientOrigin}/download/${id}`;
@@ -123,7 +110,7 @@ export const sendEmail = async (req: any, res: any) => {
     html: emailTemplate(emailFrom, downloadpageLink, filename, fileSize), // html body
   };
 
-  const info = transporter.sendMail(MailOptions, async (error, info) => {
+  transporter.sendMail(MailOptions, async (error) => {
     if (error) {
       console.log("error: ", error);
       return res.status(500).json({

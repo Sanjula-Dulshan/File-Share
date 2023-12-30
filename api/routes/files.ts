@@ -14,7 +14,7 @@ let uploadStorage = multer({
 });
 
 router.post("/upload", uploadStorage.single("myFile"), upload);
-router.get("/email", sendEmail);
+router.post("/email", sendEmail);
 router.get("/:id", getFileDetails);
 router.get("/download/:id", downloadFile);
 

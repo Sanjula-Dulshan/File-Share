@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { UPLOAD_STATE } from "../../libs/types";
 import { DownloadFile } from "@/components/DownloadFile";
+import { EmailForm } from "@/components/EmailForm";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -65,9 +66,10 @@ export default function Home() {
             {uploadState}
           </button>
         )}
-        {downloadPageLink && (
+        {id && downloadPageLink && (
           <div className="p-2 text-center">
             <DownloadFile downloadPageLink={downloadPageLink} />
+            <EmailForm id={id} />
             <button className="button" onClick={resetComponent}>
               Upload New File
             </button>
