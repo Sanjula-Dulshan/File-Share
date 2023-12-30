@@ -9,7 +9,7 @@ import Mail from "nodemailer/lib/mailer";
 
 export const upload = async (req: any, res: any) => {
   try {
-    if (!req.file) return res.status(400).json({ msg: "No file uploaded" });
+    if (!req.file) return res.status(400).json({ message: "No file uploaded" });
 
     let uploadedFile: UploadApiResponse;
 
@@ -34,11 +34,11 @@ export const upload = async (req: any, res: any) => {
       });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ msg: "Cloudinary Error" });
+      res.status(500).json({ message: "Cloudinary Error" });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: "Server Error" });
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -48,7 +48,7 @@ export const getFileDetails = async (req: any, res: any) => {
     const file = await File.findById(id);
 
     if (!file) {
-      return res.status(404).json({ msg: "File does not exist" });
+      return res.status(404).json({ message: "File does not exist" });
     }
 
     const { filename, format, sizeInBytes } = file;
@@ -60,7 +60,7 @@ export const getFileDetails = async (req: any, res: any) => {
       id,
     });
   } catch (error) {
-    return res.status(500).json({ msg: "Server Error" });
+    return res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -70,12 +70,12 @@ export const downloadFile = async (req: any, res: any) => {
     const file = await File.findById(id);
 
     if (!file) {
-      return res.status(404).json({ msg: "File does not exist" });
+      return res.status(404).json({ message: "File does not exist" });
     }
 
     https.get(file.secure_url, (fileStream) => fileStream.pipe(res));
   } catch (error) {
-    return res.status(500).json({ msg: "Server Error" });
+    return res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -83,10 +83,9 @@ export const sendEmail = async (req: any, res: any) => {
   const { id, emailFrom, emailTo, clientOrigin } = req.body;
 
   const file = await File.findById(id);
-  console.log("file: ", file);
 
   if (!file) {
-    return res.status(404).json({ msg: "File does not exist" });
+    return res.status(404).json({ message: "File does not exist" });
   }
 
   const transporter = nodemailer.createTransport({
@@ -113,9 +112,8 @@ export const sendEmail = async (req: any, res: any) => {
 
   transporter.sendMail(MailOptions, async (error) => {
     if (error) {
-      console.log("error: ", error);
       return res.status(500).json({
-        msg: "Server error",
+        message: "Server error",
       });
     }
 
@@ -124,6 +122,6 @@ export const sendEmail = async (req: any, res: any) => {
 
     await file.save();
 
-    return res.status(200).json({ msg: "Email sent" });
+    return res.status(200).json({ message: "Email sent" });
   });
 };

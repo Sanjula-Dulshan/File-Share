@@ -11,7 +11,6 @@ const index: NextPage<{ file: IFile }> = ({
     const { data } = await axios.get(`/api/files/download/${id}`, {
       responseType: "blob",
     });
-    console.log("data", data);
     fileDownload(data, name);
   };
   return (

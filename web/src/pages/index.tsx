@@ -35,7 +35,6 @@ export default function Home() {
       setDownloadPageLink(`${window.location.origin}/download/${data.id}`);
       setUploadState(UPLOAD_STATE.UPLOADED);
     } catch (error: any) {
-      console.log("error ", error.response.data);
       setUploadState(UPLOAD_STATE.UPLOAD_FAILED);
     }
   };

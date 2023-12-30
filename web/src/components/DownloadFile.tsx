@@ -3,7 +3,6 @@ import React, { FunctionComponent } from "react";
 export const DownloadFile: FunctionComponent<{ downloadPageLink: string }> = ({
   downloadPageLink,
 }) => {
-  console.log("downloadPageLink", downloadPageLink);
   return (
     <div className="p-1">
       <h1 className="my-2 text-lg font-medium">

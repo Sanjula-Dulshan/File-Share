@@ -5,7 +5,6 @@ export const DropZone: FunctionComponent<{ setFile: Dispatch<any> }> = ({
   setFile,
 }) => {
   const onDrop = useCallback((acceptedFiles: DropzoneOptions[]) => {
-    console.log(acceptedFiles);
     setFile(acceptedFiles[0]);
   }, []);
   const { getRootProps, getInputProps, isDragAccept, isDragReject } =
