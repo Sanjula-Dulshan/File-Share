@@ -33,9 +33,11 @@ export const EmailForm: FunctionComponent<{ id: string }> = ({ id }) => {
         data: inputs,
       });
       setSuccessMessage(data.message);
+      setErrorMessage(undefined);
       setIsInputCompleted(false);
     } catch (error: any) {
       setErrorMessage(error.response.data.message);
+      setSuccessMessage(undefined);
     }
   };
 
@@ -47,7 +49,7 @@ export const EmailForm: FunctionComponent<{ id: string }> = ({ id }) => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full p-2 space-y-3">
-      <h3>You can also send the file through mail</h3>
+      <h3 className="mt-5">You can also send the file through mail</h3>
       <form
         className="flex flex-col items-center justify-center w-full p-2 space-y-3"
         onSubmit={handleEmail}
