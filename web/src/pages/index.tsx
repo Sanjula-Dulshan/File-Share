@@ -49,7 +49,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center">
       <h1 className="my-4 text-3xl">Got a File? Share it with your friends!</h1>
 
-      <div className="flex flex-col items-center justify-center bg-gray-800 shadow-xl w-96 rounded-xl">
+      <div className="flex flex-col items-center justify-center bg-dark-green-400 shadow-xl w-96 rounded-xl">
         {!downloadPageLink && <DropZone setFile={setFile} />}
         {file && (
           <RenderFile
@@ -61,7 +61,13 @@ export default function Home() {
           />
         )}
         {!downloadPageLink && (
-          <button className="button" onClick={handleUpload}>
+          <button
+            className={
+              "button " +
+              (uploadState === UPLOAD_STATE.UPLOADING ? "button_disable" : "")
+            }
+            onClick={handleUpload}
+          >
             {uploadState}
           </button>
         )}

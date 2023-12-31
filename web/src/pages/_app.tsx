@@ -7,7 +7,7 @@ axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className="grid h-screen font-serif bg-blue-950 place-items-center">
+    <div className="grid h-screen font-serif bg-dark-gray place-items-center">
       <div>
         <Component {...pageProps} />
         <SpeedInsights />

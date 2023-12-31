@@ -61,7 +61,7 @@ export const EmailForm: FunctionComponent<{ id: string }> = ({ id }) => {
           name="emailFrom"
           onChange={handleChange}
           value={inputs.emailFrom}
-          className="p-1 text-white bg-gray-800 border-2 focus:outline-none"
+          className="p-1 text-white bg-dark-gray border-2 focus:outline-none"
         />
         <input
           type="email"
@@ -70,7 +70,7 @@ export const EmailForm: FunctionComponent<{ id: string }> = ({ id }) => {
           name="emailTo"
           onChange={handleChange}
           value={inputs.emailTo}
-          className="p-1 text-white bg-gray-800 border-2 focus:outline-none"
+          className="p-1 text-white bg-dark-gray border-2 focus:outline-none"
         />
         <button className="button" type="submit">
           Email
